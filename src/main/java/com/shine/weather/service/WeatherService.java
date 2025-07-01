@@ -16,9 +16,6 @@ public class WeatherService {
     @Value("${weather.api.key}")
     private String apiKey;
 
-    @Value("${geo.api.key}")
-    private String geoApiKey;
-
     public WeatherService(WebClient.Builder webClientBuilder,
                           @Value("${weather.api.base-url}") String baseUrl) {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
@@ -33,7 +30,7 @@ public class WeatherService {
                         .path("/geo/1.0/direct")
                         .queryParam("q", city)
                         .queryParam("limit", 1)
-                        .queryParam("appid", geoApiKey)
+                        .queryParam("appid", apiKey)
                         .build())
                 .retrieve()
                 .bodyToMono(JsonNode.class);
